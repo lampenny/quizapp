@@ -1,13 +1,9 @@
-import { useState } from "react";
-import { fetchQuizQuestions } from "./API";
-// Components
+import { FC, useState } from "react";
+import { fetchQuizQuestions, QuestionState, Difficulty } from "./API";
 import QuestionCard from "./components/QuestionCard";
-// Types
-import { QuestionState, Difficulty } from "./API";
-// Styles
 import { GlobalStyle, Wrapper } from "./App.styles";
 
-export type AnswerObject = {
+export type Answer = {
   question: string;
   answer: string;
   correct: boolean;
@@ -16,11 +12,11 @@ export type AnswerObject = {
 
 const TOTAL_QUESTIONS = 10;
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [loading, setLoading] = useState(false);
   const [questions, setQuestions] = useState<QuestionState[]>([]);
   const [number, setNumber] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
+  const [userAnswers, setUserAnswers] = useState<Answer[]>([]);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
 
@@ -32,6 +28,7 @@ const App: React.FC = () => {
       TOTAL_QUESTIONS,
       Difficulty.EASY
     );
+
     setQuestions(newQuestions);
     setScore(0);
     setUserAnswers([]);
@@ -41,12 +38,11 @@ const App: React.FC = () => {
 
   const checkAnswer = (e: any) => {
     if (!gameOver) {
-      // User's answers
       const answer = e.currentTarget.value;
-      // Check answer against correct answer
       const correct = questions[number].correct_answer === answer;
-      // Add score if answer is correct
+
       if (correct) setScore((prev) => prev + 1);
+
       // Save answer in the array for user answers
       const answerObject = {
         question: questions[number].question,
@@ -73,14 +69,17 @@ const App: React.FC = () => {
     <>
       <GlobalStyle />
       <Wrapper>
-        <h1>Quiz App</h1>
-        <h3>How good is your general knowledge?</h3>
+        <h1>QUIZZICAL</h1>
+        <h3>How good is your general knowledge? Test it now!</h3>
+
         {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
           <button className="start" onClick={startTrivia}>
             Start
           </button>
         ) : null}
+
         {loading && <p>Loading Questions ...</p>}
+
         {!loading && !gameOver && (
           <QuestionCard
             questionNum={number + 1}
@@ -91,6 +90,7 @@ const App: React.FC = () => {
             callback={checkAnswer}
           />
         )}
+
         {!gameOver &&
         !loading &&
         userAnswers.length === number + 1 &&

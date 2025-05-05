@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import { styled, createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   html {
@@ -12,13 +12,14 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0 20px;
     display: flex;
     justify-content: center;
+    color: black;
   }
 
   * {
     box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+     font-family: Sono, 'serif';
   }
-`
+`;
 
 export const Wrapper = styled.div`
   display: flex;
@@ -31,9 +32,10 @@ export const Wrapper = styled.div`
     color: #fff;
     font-size: 2rem;
     margin-bottom: 20px;
+    filter: drop-shadow(2px 2px #0085a3);
   }
   h1 {
-    font-family: Fascinate Inline;
+    font-family: Sono;
     background-image: linear-gradient(180deg, #fff, #87f1ff);
     font-weight: 400;
     background-size: 100%;
@@ -52,7 +54,12 @@ export const Wrapper = styled.div`
     padding-bottom: 30px;
   }
 
-  .start, .next {
+  div {
+    font-weight: 400;
+  }
+
+  .start,
+  .next {
     cursor: pointer;
     background: linear-gradient(180deg, #ffffff, #ffcc91);
     border: 2px solid #d38558;

@@ -1,18 +1,19 @@
+import { MouseEvent, FC } from "react";
 //Types
-import { AnswerObject } from "../App";
+import { Answer } from "../App";
 // Styles
 import { Wrapper, ButtonWrapper } from "./QuestionCard.styles";
 
 type Props = {
   question: string;
   answers: string[];
-  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  userAnswer: AnswerObject | undefined;
+  callback: (e: MouseEvent<HTMLButtonElement>) => void;
+  userAnswer: Answer | undefined;
   questionNum: number;
   totalQuestions: number;
 };
 
-const QuestionCard: React.FC<Props> = ({
+const QuestionCard: FC<Props> = ({
   question,
   answers,
   callback,
@@ -32,7 +33,7 @@ const QuestionCard: React.FC<Props> = ({
           correct={userAnswer?.correctAnswer === answer}
           userClicked={userAnswer?.answer === answer}
         >
-          <button disabled={!!userAnswer} onClick={callback}>
+          <button value={answer} disabled={!!userAnswer} onClick={callback}>
             <span dangerouslySetInnerHTML={{ __html: answer }} />
           </button>
         </ButtonWrapper>
